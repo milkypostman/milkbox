@@ -1,10 +1,7 @@
 {% extends "base.html" %}
 {% block title %}net{% endblock title %}
 {% block content %}
-  {{ super }}
-  <header>
-    <h2>Notes</h2>
-  </header>
+  {{ super() }}
   <section id="notes">
     <ul class="notelist">
       {% for a in articles %}
