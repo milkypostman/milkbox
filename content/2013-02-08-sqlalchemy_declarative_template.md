@@ -8,6 +8,7 @@ Below are Python files to get started using [SQLAlchemy](http://www.sqlalchemy.o
 
 The `db.py` file contains,
 
+    :::python
     from sqlalchemy import Column, Boolean, BigInteger, DateTime, ForeignKey, Integer, Numeric, String, Table, Text
     from sqlalchemy.ext.declarative import declarative_base, declared_attr
     from sqlalchemy.orm import relationship, backref, deferred
@@ -50,6 +51,7 @@ One should adjust the imports accordingly and setup the configuration settings s
 
 You can then create new models like,
 
+    :::python
     class Account(Base):
         id = Column(Integer, primary_key=True)
         created = Column(DateTime, default=sa.sql.func.now())

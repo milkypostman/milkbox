@@ -8,7 +8,6 @@ Using [pandas][pandas] I've been doing some data analysis and simple data explor
 While doing all this I figured out how to use Gaussian [Kernel Density Estimation][kde] to make my histograms smooth. A [question on Stack Overflow][so-density] provided the bulk of the code and instructions on how to adjust the `covariance_factor` of the `gaussian_kde` class provided by the [scipy][scipy] stats module.
 
 ![`covariance_factor = .5`](/static/imgs/gaussian_kde_5.png) 
-
 ![`covariance_factor = .25`](/static/imgs/gaussian_kde_25.png) 
 
 ## Pitfalls
@@ -17,6 +16,7 @@ One thing to note is that the `gaussian_kde` function requires floating point nu
 
 Code to generate the graphs is:
 
+    :::python
     import matplotlib.pyplot as plt
     import numpy as np
     from scipy.stats import gaussian_kde
@@ -54,6 +54,7 @@ Code to generate the graphs is:
 
 The code above requires the following function:
 
+    :::python
     from rstyle import rstyle
     
     def ggaxes(fig=None):
@@ -64,6 +65,7 @@ The code above requires the following function:
         
 `rstyle` is the function to style [matplotlib][matplotlib] like [ggplot2][ggplot2] (originally located [here][matplotlib-ggplot]) which I keep in the file `rstyle.py` somewhere in my `PYTHONPATH`:
 
+    :::python
     from pylab import *
     
     def rstyle(ax):
