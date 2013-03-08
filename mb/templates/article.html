@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <section id="content" class="body">
+    <header>
+      <h2 class="entry-title">
+        <a href="" rel="bookmark"
+           title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
+           {% import 'translations.html' as translations with context %}
+           {{ translations.translations_for(article) }}
+    </header>
+    <footer class="post-info">
+    </footer><!-- /.post-info -->
+    <div class="entry-content">
+      {{ article.content }}
+    </div><!-- /.entry-content -->
+  </section>
+{% endblock %}
+

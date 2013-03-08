@@ -1,0 +1,168 @@
+/*
+ * main css file for milkbox.net
+ *
+ * simple
+ */
+
+/* a { */
+/*     color: darkgreen; */
+/* } */
+
+
+body {
+    font-family: Cochin, Palatino;
+    /* background: #F0F0D8; */
+    /* background: #FEFFF2; */
+    /* background: #FBFDFC; */
+    -webkit-font-smoothing: antialiased;
+    background: white;
+    font-size: 105%;
+    margin: 0px;
+/* padding: 0px; */
+}
+
+#body {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3em 0 2em 0;
+}
+
+a {
+    color: #EC4832;
+}
+
+ul, ol, dl {
+    padding: 0;
+    margin: 0;
+    margin-top: 1em;
+    margin-bottom: 1.2em;
+}
+
+ul {
+    margin-left: 1.35em;
+}
+
+ol {
+    margin-left: 2em;
+    list-style-type: decimal-leading-zero;
+}
+
+img {
+    max-width: 500px;
+}
+
+p {
+    line-height: 1.5em;
+    margin: 0 0 1.2em 0;
+}
+
+.clear {
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: "Gill Sans", sans-serif;
+    font-size: 120%;
+    font-weight: normal;
+    margin-top: 1.5em;
+    margin-bottom: 1.2em;
+}
+
+h1 {
+    font-size: 140%;
+    margin-top: 3em;
+}
+
+
+hr {
+    border: 0;
+    background-color: #D8CB42;
+    height: 1px;
+}
+
+/* floats */
+
+.fright {
+    float: right
+}
+
+.fleft {
+    float: left
+}
+
+.icon {
+    height: 20px;
+}
+
+
+
+/* header and icons */
+
+#header h1 {
+    line-height: 20px;
+    font-size: 160%;
+    margin: 0;
+}
+
+#header {
+    color: #A8C078;
+    margin-bottom: 3em;
+}
+
+#header a {
+
+    color: #607830;
+    text-decoration: none;
+}
+
+#icons {
+}
+
+
+/* markdown footnotes */
+
+.footnotes {
+    font-size: 80%;
+}
+
+.footnotes a {
+    /* color: #A8C078; */
+    color: #90D191;
+}
+
+
+
+/* section listings on front page */
+
+.sections h1 {
+    margin: 0 0 .5em 0;
+    font-variant: small-caps;
+}
+
+.sections a {
+    font-family: "Gill Sans", "Helvetica Neue", "Helvetica";
+    font-size: 95%;
+    text-decoration: none;
+}
+
+.sections a:hover {
+    text-decoration: underline;
+}
+
+.sections ul, dl {
+    margin: 0 0 2em 0;
+
+}
+
+.sections li {
+    list-style-type: none;
+    margin: .2em 0 .2em 0;
+}
+
+.sections dd p {
+    font-size: 85%;
+    }
+
+
+
+

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {{ super }}
+  <header>
+    <h2>Notes</h2>
+  </header>
+  <section id="notes">
+    <ul class="notelist">
+      {% for a in articles %}
+        <li class="notelink"><a href="{{ SITE_URL }}/{{ a.url }}">{{ a.title|striptags }}</a>
+      {% endfor %}
+    </ul>
+  </section>
+  {% for p in pages|sort(attribute='source_path') %}
+    <header>
+      <h2>{{ p.title }}</h2>
+    </header>
+    <section id="projects">
+      {{ p.content }}
+    </section>
+  {% endfor %}
+{% endblock content %}
