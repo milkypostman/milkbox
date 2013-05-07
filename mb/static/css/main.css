@@ -256,7 +256,17 @@ section dd {
     margin-bottom: 1.2em;
 }
 
+.codehilite, code {
+    background: #eee;
+}
 
+.codehilite {
+    padding: 1em;
+}
+
+.codehilite pre {
+    margin: 0;
+}
 
 code, kbd, pre, samp {
     font-family: monospace;
