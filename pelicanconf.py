@@ -30,6 +30,7 @@ STATIC_PATHS = (['stuff', 'imgs'])
 
 OUTPUT_SOURCES = True
 
+TYPOGRIFY = True
 
 FILES_TO_COPY = (
     ('extra/robots.txt', 'robots.txt'),
