@@ -70,3 +70,36 @@ I am well aware that at some point if I were to add more functionality to this a
 Please read [Better Package Management](http://nvie.com/posts/better-package-management/) on how to actually manage dependencies properly using the virtualenvs you create.
 
 
+# Updates 2013-05-10
+
+I had originally started using this approach a while back and couldn't remember the timing differences. Here is a rough timing test for shel startup time
+
+- Using the approach here:
+
+        zsh -i -c exit  0.16s user 0.27s system 76% cpu 0.570 total
+        zsh -i -c exit  0.16s user 0.19s system 101% cpu 0.338 total
+        zsh -i -c exit  0.16s user 0.19s system 101% cpu 0.343 total
+        zsh -i -c exit  0.16s user 0.19s system 100% cpu 0.345 total
+        zsh -i -c exit  0.15s user 0.18s system 101% cpu 0.329 total
+        zsh -i -c exit  0.15s user 0.18s system 100% cpu 0.334 total
+
+
+- With virtualenvwrapper but no environment activated
+
+        zsh -i -c exit  0.37s user 0.31s system 98% cpu 0.690 total
+        zsh -i -c exit  0.35s user 0.31s system 96% cpu 0.694 total
+        zsh -i -c exit  0.36s user 0.31s system 99% cpu 0.676 total
+        zsh -i -c exit  0.36s user 0.30s system 99% cpu 0.672 total
+        zsh -i -c exit  0.38s user 0.31s system 99% cpu 0.693 total
+        zsh -i -c exit  0.37s user 0.33s system 95% cpu 0.730 total
+
+- With virtualenvwrapper and activating an environment
+
+        zsh -i -c exit  0.81s user 0.64s system 96% cpu 1.507 total
+        zsh -i -c exit  0.81s user 0.59s system 99% cpu 1.417 total
+        zsh -i -c exit  0.81s user 0.62s system 98% cpu 1.459 total
+        zsh -i -c exit  0.97s user 0.69s system 98% cpu 1.698 total
+        zsh -i -c exit  0.81s user 0.63s system 95% cpu 1.498 total
+        zsh -i -c exit  0.84s user 0.62s system 98% cpu 1.489 total
+
+If you don't want an environment loaded at startup you can source `virtualenvwrapper_lazy.sh` as [mentioned here](https://bitbucket.org/dhellmann/virtualenvwrapper/issue/125/initialization-causes-slow-shell-startup) but this intended for people who will manually use `workon` to activate an environment once in the shell.
