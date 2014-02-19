@@ -9,7 +9,7 @@ PUBLISHCONF=$(BASEDIR)/publishconf.py
 
 SSH_HOST=milkbox.net
 SSH_PORT=22
-SSH_TARGET_DIR=milkbox
+SSH_TARGET_DIR=www
 
 help:
 	@echo 'Makefile for a pelican Web site                                        '
