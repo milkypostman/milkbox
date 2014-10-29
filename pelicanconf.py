@@ -3,7 +3,8 @@
 
 AUTHOR = u'Donald Curtis'
 SITENAME = u'milkbox'
-SITEURL = ''
+SITEURL = u'http://milkbox.net'
+
 
 FEED_DOMAIN = 'http://milkbox.net'
 
@@ -26,18 +27,20 @@ LINKS =  (('Pelican', 'http://docs.notmyidea.org/alexis/pelican/'),
 SOCIAL = (('You can add links in your config file', '#'),
           ('Another social link', '#'),)
 
-STATIC_PATHS = (['stuff', 'imgs'])
-
 OUTPUT_SOURCES = True
 
 TYPOGRIFY = True
 
-FILES_TO_COPY = (
-    ('extra/robots.txt', 'robots.txt'),
-    ('extra/humans.txt', 'humans.txt'),
-    ('extra/crossdomain.xml', 'crossdomain.xml'),
-    ('extra/favicon.ico', 'favicon.ico'),
+STATIC_PATHS = (
+    'robots.txt',
+    'humans.txt',
+    'crossdomain.xml',
+    'favicon.ico',
+    'static/imgs',
+    'static/stuff',
     )
+
+EXTRA_PATH_METADATA = {'imgs': {'path': 'static/imgs/'}}
 
 
 ARTICLE_URL = 'note/{slug}/'
