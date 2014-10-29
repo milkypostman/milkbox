@@ -38,19 +38,42 @@ This loads the *package* feature (provided by `package.el`), sets the path where
 I then have a function to quickly install rad (important) packages that I almost always *definitely* want. This function is useful when I blow away the `~/.emacs.d/elpa` directory for testing or when I am bootstrapping Emacs on a new machine.
 
 ```common-lisp
+(defvar mp-rad-packages
+  '(
+    ;; ag
+    ;; auto-complete
+    ;; base16-theme
+    ;; clojure-mode
+    ;; company
+    ;; deft
+    ;; dired+
+    ;; dropdown-list
+    ;; evil
+    ;; flx
+    ;; gist
+    ;; rainbow-delimiters
+    ;; smartparens
+    ace-jump-mode
+    browse-kill-ring
+    diminish
+    expand-region
+    git-commit-mode
+    ido-ubiquitous
+    ido-vertical-mode
+    magit
+    multiple-cursors
+    smex
+    undo-tree
+    ))
+
 (defun mp-install-rad-packages ()
   "Install only the sweetest of packages."
   (interactive)
   (package-refresh-contents)
-  (mapc '(lambda (package)
-           (unless (package-installed-p package)
-             (package-install package)))
-        '(browse-kill-ring
-          ido-ubiquitous
-          magit
-          paredit
-          smex
-          undo-tree)))
+  (mapc #'(lambda (package)
+            (unless (package-installed-p package)
+              (package-install package)))
+        mp-rad-packages))
 ```
 
 The function updates the local package repository information and then installs the packages in the order listed from top to bottom. I think you can do a similar thing on the command line using something like [Carbon](https://github.com/rejeep/carton) and [Pallet](https://github.com/rdallasgray/pallet) but this works for me and is simple as picking your nose---which you can do while packages are installing if that's your thing---and it keeps my package list right along side my configuration.
@@ -61,7 +84,6 @@ The function updates the local package repository information and then installs 
 The key to my configuration and using `package.el` is lazy loading magic using this `after` macro,
 
 ```common-lisp
-;;;; macros
 (defmacro after (mode &rest body)
   "`eval-after-load' MODE evaluate BODY."
   (declare (indent defun))
@@ -184,12 +206,12 @@ When I add a package and want to add keybindings or set variables I wrap the com
 
 ### Running code when a package is available.
 
-There are times I start Emacs having no packages installed. The problem I encountered early on in my configuration career is code in my `init.el` that requires the package to be available. Luckily when `package.el` installs a new package it creates an autoload file that provides a feature whose name is the name of the package with `-autoloads` appended. For example, after installing the [multiple-cursors](https://github.com/magnars/multiple-cursors.el) package the file `multiple-cursors-autoloads.el` exists. When `package-initialize` runs it loads `multiple-cursors-autoloads.el` which then provides the `multiple-cursors-autoloads` feature.
+There are times I start Emacs having no packages installed. The problem I encountered early on in my configuration career is code in my `init.el` that requires the package to be available. Luckily when `package.el` installs a new package it creates an autoload file that can be used to indicate that the package is installed. The generated file is the package name with `-autoloads` appended. For example, after installing the [multiple-cursors](https://github.com/magnars/multiple-cursors.el) package the file `multiple-cursors-autoloads.el` exists. When `package-initialize` runs it loads `multiple-cursors-autoloads.el` and when a file is loaded we can use a string to match the file name with the `after` macro.
 
-The implication is we can have code that runs *only* if the package is actually installed simply by wrapping it in the `after` macro based on the `-autoloads` feature created by `package.el`. Since I don't want bindings for *multiple-cursors* unless it's actually installed I have the following,
+The implication is we can have code that runs *only* if the package is actually installed simply by wrapping it in the `after` macro based on the `-autoloads` filename created by `package.el`. Since I don't want bindings for *multiple-cursors* unless it's actually installed I have the following,
 
 ```common-lisp
-(after 'multiple-cursors-autoloads
+(after "multiple-cursors-autoloads"
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
   (global-set-key (kbd "C-S-c C-e") 'mc/edit-ends-of-lines)
   (global-set-key (kbd "C-S-c C-a") 'mc/edit-beginnings-of-lines)
@@ -207,7 +229,7 @@ Thus, if `multiple-cursors` is not installed this code will never run. If `multi
 Similarly, I don't want to enable `global-undo-tree-mode` unless `undo-tree` is *actually* installed so I have
 
 ```common-lisp
-(after 'undo-tree-autoloads
+(after "undo-tree-autoloads"
   (global-undo-tree-mode t)
   (setq undo-tree-visualizer-relative-timestamps t)
   (setq undo-tree-visualizer-timestamps t))
@@ -216,7 +238,7 @@ Similarly, I don't want to enable `global-undo-tree-mode` unless `undo-tree` is 
 And since I can't run a function provided by a package in a hook unless that package is actually installed, I make sure only to `add-hook` when the package is available. With `rainbow-delimiters` I have,
 
 ```common-lisp
-(after 'rainbow-delimiters-autoloads
+(after "rainbow-delimiters-autoloads"
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable))
 ```
 
@@ -274,7 +296,7 @@ In both cases this code executes after the package loads.
 Occasionally I want to combine these like I do with `diminish`,
 
 ```common-lisp
-(after 'diminish-autoloads
+(after "diminish-autoloads"
   (after 'paredit (diminish 'paredit-mode " pe"))
   (after 'yasnippet (diminish 'yas-minor-mode " ys"))
   (after 'undo-tree (diminish 'undo-tree-mode " ut"))
